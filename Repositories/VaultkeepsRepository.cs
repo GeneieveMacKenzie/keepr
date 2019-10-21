@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using keepr.Models;
@@ -13,14 +14,24 @@ namespace keepr.Repositories
             _db = db;
         }
 
-        public void AddKeep(Vaultkeep newvaultkeep)
+        public void AddKeep(int VaultId, int KeepId, string userId)
         {
             string sql = @"
             INSERT INTO vaultkeeps
-            (vaultId, keepId)
+            (vaultId, keepId, userId)
             VALUES
-            (@vaultId, @keepId)";
-            _db.Execute(sql, new { newvaultkeep });
+            (@VaultId, @KeepId, @userId)";
+            _db.Execute(sql, new { VaultId, KeepId, userId });
+            
+        }
+
+        public IEnumerable<Vaultkeep> Get(userId, vaultId)
+        {
+            string sql = @"
+            SELECT * FROM vaultkeeps vk
+            INNER JOIN keeps k ON k.id = vk.keepId 
+            WHERE (vaultId = @vaultId AND vk.userId = @userId)";
+            return _db.Query<Vaultkeep>(sql, new { userId, vaultId });
         }
     }
 }

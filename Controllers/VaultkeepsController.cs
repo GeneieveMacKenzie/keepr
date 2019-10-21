@@ -31,6 +31,21 @@ namespace keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Vaultkeep> Get(int vaultId)
+        {
+            try
+            {
+                var userId = HttpContext.User.FindFirstValue("Id");
+                return Ok(_vks.Get(vaultId, userId));
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        }
     }
 }
 

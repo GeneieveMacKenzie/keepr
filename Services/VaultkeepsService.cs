@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -22,9 +23,14 @@ namespace keepr.Services
             if (vault == null || vault.userId != newvaultkeep.userId) { throw new Exception("invalid vault id"); }
             Keep keepToAdd = _keeprepo.Get(newvaultkeep.KeepId);
             if (keepToAdd == null) { throw new Exception("Invalid keep id"); }
-            _vaultkeeprepo.AddKeep(newvaultkeep);
+            _vaultkeeprepo.AddKeep(newvaultkeep.VaultId, newvaultkeep.KeepId, newvaultkeep.userId);
             return "Successfully added Keep to Vault";
 
+        }
+
+        public IEnumerable<Vaultkeep> Get(int vaultId, string userId)
+        {
+            return _vaultkeeprepo.Get(userId, vaultId);
         }
     }
 }
