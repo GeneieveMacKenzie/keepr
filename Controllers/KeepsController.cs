@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
-        [Authorize]
         [ApiController]
         [Route("api/[controller]")]
     public class KeepsController : ControllerBase
@@ -33,19 +32,6 @@ namespace keepr.Controllers
             }
         }
 
-        // [HttpGet("/user")]
-        // public ActionResult<IEnumerable<Keep>> Get(string id)
-        // {
-        //     try
-        //     {
-        //         return Ok(_ks.Get(id));
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         return BadRequest(e.Message);
-        //     }
-        // }
-        
         [HttpGet("{id}")]
         public ActionResult<Keep> Get(int id)
         {
@@ -58,7 +44,22 @@ namespace keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [Authorize]
+        [HttpGet("user")]
+        public ActionResult<IEnumerable<Keep>> GetByUser()
+        {
+            try
+            {
+                var userid = HttpContext.User.FindFirstValue("Id");
+                return Ok(_ks.GetByUser(userid));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [Authorize]
         [HttpPost]
         public ActionResult<Keep> Create([FromBody]Keep newKeep)
         {
@@ -72,7 +73,21 @@ namespace keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [Authorize]
+        [HttpPut("{id}")]
+        public ActionResult<Keep> Edit([FromBody] Keep newKeep, int id)
+        {
+            try
+            {
+                newKeep.Id = id;
+                return Ok(_ks.Edit(newKeep));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int id)
         {

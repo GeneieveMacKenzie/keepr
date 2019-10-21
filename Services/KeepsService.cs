@@ -21,11 +21,10 @@ namespace keepr.Services
             return _repo.Get();
         }
 
-        // public IEnumerable<Keep> Get(string id)
-        // {
-        //     if (exists == null) { throw new Exception("Invalid Id"); }
-        //     return _repo.GetByUser(id);
-        // }
+        public IEnumerable<Keep> GetByUser(string userid)
+        {
+            return _repo.GetByUser(userid);
+        }
 
         public Keep Get(int id)
         {
@@ -40,7 +39,14 @@ namespace keepr.Services
             newKeep.Id = id;
             return newKeep;
         }
-
+        public Keep Edit(Keep newKeep)
+        {
+            Keep keep = _repo.Get(newKeep.Id);
+            if (keep == null) { throw new Exception("Invalid Id Homie"); } //check if userId matches???
+            keep.userId = newKeep.userId;
+            _repo.Edit(keep);
+            return keep;
+        }
         public string Delete(int id, string userId)
         {
             Keep keep = _repo.Get(id);

@@ -15,14 +15,9 @@ namespace keepr.Repositories
         }
         public IEnumerable<Keep> Get()
         {
-            string sql = "SELECT * FROM keeps";
+            string sql = "SELECT * FROM keeps WHERE isPrivate = false";
             return _db.Query<Keep>(sql);
         }
-        // public Keep Get(int id)
-        // {
-        //     string sql = "SELECT * FROM shoes WHERE id = @id";
-        //     return _db.QueryFirstOrDefault<Keep>(sql, new { id });
-        // }
 
         public int Create(Keep newKeep)
         {
@@ -36,11 +31,11 @@ namespace keepr.Repositories
             return _db.ExecuteScalar<int>(sql, newKeep);
         }
 
-        // public IEnumerable<Keep> Get(string id)
-        // {
-        //     string sql = "SELECT * FROM keeps WHERE userId = @id";
-        //     return _db.Query<Keep>(sql, new { id });
-        // }
+        public IEnumerable<Keep> GetByUser(string userid)
+        {
+            string sql = "SELECT * FROM keeps WHERE userId = @userid";
+            return _db.Query<Keep>(sql, new { userid });
+        }
 
         public Keep Get(int id)
         {
@@ -48,7 +43,20 @@ namespace keepr.Repositories
             return _db.QueryFirstOrDefault<Keep>(sql, new { id });
         }
 
-        internal void Delete(int id)
+        public void Edit(Keep keep)
+        {
+            string sql = @"
+            UPDATE keeps
+            SET 
+                name = @Name,
+                description = @Description,
+                img = @Img,
+                isPrivate = @isPrivate
+            WHERE 
+                id = @Id";
+            _db.Execute(sql, keep);
+        }
+        public void Delete(int id)
         {
             string sql = "DELETE FROM keeps WHERE id = @id";
             _db.Execute(sql, new { id });
