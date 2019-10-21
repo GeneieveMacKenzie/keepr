@@ -73,17 +73,18 @@ namespace keepr.Controllers
             }
         }
 
-        // [HttpDelete("{id}")]
-        // public ActionResult<string> Delete(int id)
-        // {
-        //     try
-        //     {
-        //         return Ok(_ks.Delete(id));
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         return BadRequest(e.Message);
-        //     }
-        // }
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(int id)
+        {
+            try
+            {
+                var userId = HttpContext.User.FindFirstValue("Id");
+                return Ok(_ks.Delete(id, userId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

@@ -41,13 +41,13 @@ namespace keepr.Services
             return newKeep;
         }
 
-        // public string Delete(int id)
-        // {
-        //    
-        //     if(keep == null)  { throw new Exception("Invalid Id"); }
-        //     _repo.Delete(id);
-        //     return "Deleted";
-        // }
+        public string Delete(int id, string userId)
+        {
+            Keep keep = _repo.Get(id);
+            if (keep == null || keep.userId != userId) { throw new Exception("Invalid Request"); }
+            _repo.Delete(id);
+            return "Successfully Deleted";
+        }
 
     }
 
