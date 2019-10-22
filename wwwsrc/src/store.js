@@ -6,7 +6,7 @@ import AuthService from './AuthService'
 
 Vue.use(Vuex)
 
-let baseUrl = location.host.includes('localhost') ? '//localhost:5000/' : '/'
+let baseUrl = location.host.includes('localhost') ? 'https://localhost:5001/' : '/'
 
 let api = Axios.create({
   baseURL: baseUrl + "api/",
@@ -16,7 +16,9 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    keeps: [],
+    vaults:[],
   },
   mutations: {
     setUser(state, user) {
@@ -25,6 +27,12 @@ export default new Vuex.Store({
     resetState(state) {
       //clear the entire state object of user data
       state.user = {}
+    },
+    setKeeps(state, keeps) {
+      state.keeps = keeps
+    },
+    setVaults(state, vaults) {
+      state.vaults = vaults
     }
   },
   actions: {
@@ -51,9 +59,39 @@ export default new Vuex.Store({
         let success = await AuthService.Logout()
         if (!success) { }
         commit('resetState')
-        router.push({ name: "login" })
+        router.push({ name: "home" })
       } catch (e) {
         console.warn(e.message)
+      }
+    },
+    usernameButton() {
+      router.push({ name: "profile" })
+    },
+    backButton() {
+      router.push({ name: "home" })
+    },
+    async getKeeps({ commit, dispatch }) {
+      try {
+        let res = await api.get('keeps')
+        commit('setKeeps', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getVaults({ commit, dispatch }) {
+      try {
+        let res = await api.get('vaults')
+        commit('setVaults', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async addToVault({ commit, dispatch }, data) {
+      try {
+        let res = await api.post('vaultkeeps', data)
+        commit('setVaults', data)
+      } catch (error) {
+        
       }
     }
   }
