@@ -32,6 +32,15 @@ namespace keepr.Services
         {
             return _vaultkeeprepo.Get(userId, vaultId);
         }
+
+        public string Delete(Vaultkeep vaultkeep)
+        {
+            Vaultkeep vk = _vaultkeeprepo.GetOne(vaultkeep);
+            if (vk == null) { throw new Exception("Invalid Id"); }
+            _vaultkeeprepo.Delete(vk.Id);
+            return "Successfully Deleted";
+
+        }
     }
 }
 

@@ -40,10 +40,23 @@ namespace keepr.Controllers
                 var userId = HttpContext.User.FindFirstValue("Id");
                 return Ok(_vks.Get(vaultId, userId));
             }
-            catch (System.Exception)
+            catch (Exception e)
             {
-                
-                throw;
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut]
+        public ActionResult<string> Delete([FromBody] Vaultkeep vaultkeep)
+        {
+            try
+            {
+                vaultkeep.userId = HttpContext.User.FindFirstValue("Id");
+                 return Ok(_vks.Delete(vaultkeep));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }
