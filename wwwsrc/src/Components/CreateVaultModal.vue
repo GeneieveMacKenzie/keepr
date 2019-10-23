@@ -1,33 +1,22 @@
 <template>
-  <div id="create-keep-modal" class="modal" tabindex="2" role="dialog">
+  <div id="create-vault-modal" class="modal" tabindex="2" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create Keep</h5>
+          <h5 class="modal-title">Create Vault</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form @submit.prevent="addKeep()">
+          <form @submit.prevent="addVault()">
             <div class="form-group">
               <input
                 type="text"
                 class="form-control"
                 id="name"
                 placeholder="Enter Keep Name Here"
-                v-model="newKeep.name"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <!-- <label for="url">URL for recipe</label> -->
-              <input
-                type="text"
-                class="form-control"
-                id="img"
-                placeholder="img URL"
-                v-model="newKeep.img"
+                v-model="newVault.name"
                 required
               />
             </div>
@@ -38,7 +27,7 @@
                 class="form-control"
                 id="description"
                 placeholder="Enter Description"
-                v-model="newKeep.description"
+                v-model="newVault.description"
                 required
               />
             </div>
@@ -53,16 +42,16 @@
 
 <script>
 export default {
-  name: "create-keep-modal",
+  name: "create-vault-modal",
   data() {
     return {
-      newKeep: {}
+      newVault: {}
     };
   },
   computed: {},
   methods: {
-    addKeep() {
-      this.$store.dispatch("addKeep", this.newKeep);
+    addVault() {
+      this.$store.dispatch("addVault", this.newVault);
       $(".close").click();
     }
   },

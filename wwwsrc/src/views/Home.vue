@@ -15,19 +15,27 @@
       </div>
     </div>
     <div class="row">
-      <keep v-for="keep in keeps" :keepProp="keep" :key="keep._id" />
+      <CreateKeepModal />
+          <button
+          class="btn btn-danger btn-sm mt-4"
+          data-toggle="modal"
+          data-target="#create-keep-modal"
+        >Create Keep</button>
     </div>
-  </div>
+      <keep v-for="keep in keeps" :keepProp="keep" :key="keep.id" />
+    </div>
 </template>
 
 
 
 <script>
+import CreateKeepModal from "../Components/CreateKeepModal"
 import Keep from "../Components/Keep";
 export default {
   name: "home",
   mounted() {
     this.$store.dispatch("getKeeps");
+    this.$store.dispatch("getVaults");
   },
   computed: {
     user() {
@@ -45,7 +53,7 @@ export default {
       this.$store.dispatch("usernameButton");
     }
   },
-  components: { Keep }
+  components: { Keep, CreateKeepModal}
 };
 </script>
 
@@ -59,7 +67,7 @@ export default {
   background-color: #dad6d2;
 }
 .btn {
-  background-color: #4bbcbc;
+  background-color: #2a84eb;
   color: black;
 }
 </style>
