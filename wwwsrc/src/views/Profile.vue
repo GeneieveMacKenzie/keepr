@@ -47,6 +47,7 @@ export default {
   mounted() {
     this.$store.dispatch("getVaults");
     this.$store.dispatch("getKeepsByUser");
+
   },
   computed: {
     user() {
@@ -56,7 +57,7 @@ export default {
       return this.$store.state.vaults;
     },
     keeps(){
-      return this.$store.state.keeps;
+      return this.$store.state.userkeeps;
     }
   },
   methods: {

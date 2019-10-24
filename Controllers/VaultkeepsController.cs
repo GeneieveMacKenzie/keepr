@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using keepr.Models;
 using keepr.Services;
@@ -32,8 +33,8 @@ namespace keepr.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Vaultkeep> Get(int vaultId)
+        [HttpGet("{vaultId}")]
+        public ActionResult<IEnumerable<Keep>> Get(int vaultId)
         {
             try
             {

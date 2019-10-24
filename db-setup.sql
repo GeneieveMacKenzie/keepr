@@ -63,7 +63,7 @@
 -- -- USE THIS LINE FOR GET KEEPS BY VAULTID
 -- SELECT * FROM vaultkeeps vk
 -- INNER JOIN keeps k ON k.id = vk.keepId 
--- WHERE (vaultId = @vaultId AND vk.userId = @userId) 
+-- WHERE (vaultId = 1 AND vk.userId = "a3003571-e057-4405-bb22-d9871df19730") 
 
 
 

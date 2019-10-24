@@ -10,9 +10,9 @@
             type="button"
             @click="createVaultKeep(keepProp)"
           >Add to my Vault</button> -->
-          <select v-model="newVaultId" @change="createVaultKeep(keepProp)">
+          <select v-model="newVaultId" @change="createVaultKeep()">
             <option disabled value>Add To Vault</option>
-            <option v-for="vault in vaults" :value="vault._id" :key="vault._id">{{vault.name}}</option>
+            <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
           </select>
           <h5 class="card-title inline">{{keepProp.name}}</h5>
           <p class="card-text">{{keepProp.description}}</p>
@@ -38,8 +38,12 @@ export default {
     }
   },
   methods: {
-    createVaultKeep(keep) {
-      this.$store.dispatch("createVaultKeep", keep);
+    createVaultKeep() {
+      let payload={
+        keepId: this.keepProp.id,
+        vaultId: this.newVaultId
+      }
+      this.$store.dispatch("createVaultKeep", payload);
     },
     deleteKeep(keep) {
       this.$store.dispatch("deleteKeep", keep);

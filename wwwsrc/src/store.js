@@ -19,7 +19,9 @@ export default new Vuex.Store({
     user: {},
     keeps: [],
     vaults: [],
-    vaultkeeps: []
+    vaultkeeps: [],
+    activeVault: {},
+    userkeeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -37,7 +39,14 @@ export default new Vuex.Store({
     },
     setVaultKeeps(state, vaultkeeps) {
       state.vaultkeeps = vaultkeeps
+    },
+    setActiveVault(state, activeVault) {
+      state.activeVault = activeVault
+    },
+    setUserKeeps(state, userkeeps) {
+      state.userkeeps = userkeeps
     }
+
   },
   actions: {
     async register({ commit, dispatch }, creds) {
@@ -74,6 +83,12 @@ export default new Vuex.Store({
     backButton() {
       router.push({ name: "home" })
     },
+    vaultView() {
+      router.push({name: "vault"})
+    },
+    backToProfile() {
+      router.push({name:"profile"})
+    },
     async getKeeps({ commit, dispatch }) {
       try {
         let res = await api.get('keeps')
@@ -85,15 +100,16 @@ export default new Vuex.Store({
     async getKeepsByUser({ commit }) {
       try {
         let res = await api.get('keeps/user')
-        commit('setKeeps', res.data)
+        commit('setUserKeeps', res.data)
       } catch (error) {
-        
+        console.warn(e.message)
       }
     },
     async addKeep({ commit, dispatch }, data) {
       try {
         let res = await api.post('keeps', data)
         dispatch('getKeeps')
+        dispatch('getKeepsByUser')
       } catch (e) {
         console.warn(e.message)
       }
@@ -102,6 +118,15 @@ export default new Vuex.Store({
       try {
         let res = await api.delete(`keeps/${data.id}`)
         dispatch('getKeeps')
+        dispatch('getKeepsByUser')
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async deleteVault({ dispatch }, data) {
+      try {
+        let res = await api.delete(`vaults/${data.id}`)
+        dispatch("getVaults")
       } catch (error) {
         console.error(error)
       }
@@ -117,17 +142,25 @@ export default new Vuex.Store({
     async createVaultKeep({ commit, dispatch }, data) {
       try {
         let res = await api.post('vaultkeeps', data)
-        dispatch('getVaultKeeps')
+        dispatch('getVaultKeeps', data.vaultId)
       } catch (error) {
 
       }
     },
-    async getVaultKeeps({ commit }) {
+    async getVaultKeeps({ commit }, data) {
       try {
-        let res = await api.get('vaultkeeps')
-        commit('setVaultKeeps')
+        let res = await api.get(`vaultkeeps/${data}`)
+        commit('setVaultKeeps', res.data)
       } catch (error) {
-        
+        console.warn(e.message)
+      }
+    },
+    async getVaultById({ commit }, data) {
+      try {
+        let res = await api.get(`vaults/${data.id}`)
+        commit("setActiveVault", res.data)
+      } catch (error) {
+        console.warn(e.message)
       }
     },
     async addVault({ commit, dispatch }, data) {

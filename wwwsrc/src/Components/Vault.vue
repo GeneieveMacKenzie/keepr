@@ -7,27 +7,10 @@
           class="btn btn-info btn-lg"
           data-toggle="modal"
           data-target="#vault"
-          @click="getVaultKeeps()"
+          @click="vaultView(vaultProp)"
         >{{vaultProp.name}}</button>
-        <div id="vault" class="modal fade" role="dialog">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{vaultProp.name}}</h4>
-                <p class="card-text">{{vaultProp.description}}</p>
-                <div>
-                  <keep v-for="keep in keeps" :keepProp="keep" :key="keep.id" />
-                </div>
-              </div>
-              <div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button class="btn btn-danger btn-sm" @click="deleteVault(vaultProp)">DELETE</button>
+        <p>{{vaultProp.description}}</p>
       </div>
     </div>
   </div>
@@ -40,16 +23,20 @@ export default {
   name: "vault",
   props: ["vaultProp"],
   data() {
-    return {};
+    return {}
   },
   computed: {
-    keeps(){
-      return this.$store.state.keeps;
-    }
   },
   methods: {
-      getVaultKeeps(){
-          this.$store.dispatch("getVaultKeeps")
+      vaultView(vaultProp){
+        this.$router.push({
+          name:"vault",
+          params: {vaultId: vaultProp.id}
+        })
+        this.$store.dispatch("getVaultById", vaultProp)
+      },
+      deleteVault(vaultProp){
+        this.$store.dispatch("deleteVault", vaultProp)
       }
     },
   components: {Keep}
