@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Profile from './views/Profile.vue'
 import VaultView from './views/VaultView.vue'
+import KeepView from './views/KeepView'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/vault/:vaultId',
       name: 'vault',
       component: VaultView
+    },
+    {
+      path: '/keep/:keepId',
+      name: 'keep',
+      component: KeepView
     }
   ]
 })

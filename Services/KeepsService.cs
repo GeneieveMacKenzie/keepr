@@ -42,7 +42,7 @@ namespace keepr.Services
         public Keep Edit(Keep newKeep)
         {
             Keep keep = _repo.Get(newKeep.Id);
-            if (keep == null) { throw new Exception("Invalid Id Homie"); } //check if userId matches???
+            if (keep == null) { throw new Exception("Invalid Id Homie"); }
             keep.userId = newKeep.userId;
             _repo.Edit(keep);
             return keep;

@@ -51,7 +51,8 @@ namespace keepr.Repositories
                 name = @Name,
                 description = @Description,
                 img = @Img,
-                isPrivate = @isPrivate
+                isPrivate = @isPrivate,
+                count = @count
             WHERE 
                 id = @Id";
             _db.Execute(sql, keep);
