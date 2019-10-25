@@ -1,11 +1,18 @@
 <template>
-  <div class="home">
+  <div class="home bg">
     <div class="row sticky-top">
       <div class="col-12">
         <nav class="navbar navbar-expand-sm bg-primary justify-content-between">
-          <router-link  v-if="user.id" :to="{name: 'home'}"><a class="nav-link text-white" href="#" @click="logout">logout</a></router-link>
-          <router-link v-else :to="{name: 'login'}"><a class="nav-link text-white" href="#">login</a></router-link>
-          <router-link :to="{name: 'profile'}"><a v-if="user.id" class="nav-link text-white" href="#">Welcome {{user.username}}!</a><a v-else class="nav-link text-white" href="#"></a></router-link>
+          <router-link v-if="user.id" :to="{name: 'home'}">
+            <a class="nav-link text-white" href="#" @click="logout">logout</a>
+          </router-link>
+          <router-link v-else :to="{name: 'login'}">
+            <a class="nav-link text-white" href="#">login</a>
+          </router-link>
+          <router-link :to="{name: 'profile'}">
+            <a v-if="user.id" class="nav-link text-white" href="#">Welcome, {{user.username}}!</a>
+            <a v-else class="nav-link text-white" href="#"></a>
+          </router-link>
         </nav>
       </div>
     </div>
@@ -13,21 +20,27 @@
       <div class="col-12">
         <h1>Keepr</h1>
       </div>
-      <CreateKeepModal />
-          <button
-          class="btn btn-danger btn-sm mt-4"
+      <div class="col-12">
+        <CreateKeepModal />
+        <button
+          class="btn mt-4"
           data-toggle="modal"
           data-target="#create-keep-modal"
-        >Create Keep</button>
+        >
+          <i class="far fa-plus-square fa-3x"></i>
+        </button>
+      </div>
     </div>
+    <div class="row">
       <keep v-for="keep in keeps" :keepProp="keep" :key="keep.id" />
     </div>
+  </div>
 </template>
 
 
 
 <script>
-import CreateKeepModal from "../Components/CreateKeepModal"
+import CreateKeepModal from "../Components/CreateKeepModal";
 import Keep from "../Components/Keep";
 export default {
   name: "home",
@@ -50,7 +63,7 @@ export default {
       this.$store.dispatch("usernameButton");
     }
   },
-  components: { Keep, CreateKeepModal}
+  components: { Keep, CreateKeepModal }
 };
 </script>
 
@@ -59,15 +72,22 @@ export default {
 .form-inline {
   display: contents;
 }
-.nav-link{
+.nav-link {
   font-size: 25px;
   padding: 0px;
 }
-.navbar{
+.navbar {
   padding: 5px;
 }
 .sticky-top {
   position: sticky;
+}
+.bg{
+  background-color: rgb(214, 214, 214);
+  min-height: 100vh;
+}
+i{
+  color:#F39C12
 }
 
 </style>

@@ -1,34 +1,38 @@
 <template>
-  <div class="row profile">
-    <div class="col-12 sticky-top">
-      <nav class="navbar bg-primary">
+  <div class="profile bg">
+    <div class="row">
+      <div class="col-12 sticky-top">
+        <nav class="navbar bg-primary">
           <router-link :to="{name: 'home'}">
             <a class="nav-link text-white" href="#" @click="backButton">Home</a>
           </router-link>
           <h3 class="text-warning">{{user.username}}</h3>
-      </nav>
+        </nav>
+      </div>
     </div>
-    <div class="col-12">
-      <CreateVaultModal />
-      <button
-        class="btn btn-danger btn-sm mt-4"
-        data-toggle="modal"
-        data-target="#create-vault-modal"
-      >Create Vault</button>
-    </div>
-    <div class="col-12">
-      <vault v-for="vault in vaults" :vaultProp="vault" :key="vault._id" />
-    </div>
-    <div class="col-12">
-      <CreateKeepModal />
-      <button
-        class="btn btn-danger btn-sm mt-4"
-        data-toggle="modal"
-        data-target="#create-keep-modal"
-      >Create Keep</button>
-    </div>
-    <div class="col-12">
-      <keep v-for="keep in keeps" :keepProp="keep" :key="keep._id" />
+    <div class="row">
+      <div class="col-3 bg2">
+        <h1>Vaults</h1>
+        <CreateVaultModal />
+        <button
+          class="btn btn-warning btn-sm mt-4"
+          data-toggle="modal"
+          data-target="#create-vault-modal"
+        >Create Vault</button>
+        <vault v-for="vault in vaults" :vaultProp="vault" :key="vault._id" />
+      </div>
+      <div class="col-9">
+        <h1>Keeps</h1>
+        <CreateKeepModal />
+        <button
+          class="btn btn-warning btn-sm mt-4"
+          data-toggle="modal"
+          data-target="#create-keep-modal"
+        >Create Keep</button>
+        <div class="row">
+            <keep v-for="keep in keeps" :keepProp="keep" :key="keep._id" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,12 +81,22 @@ export default {
 .navbar {
   padding: 3px;
 }
-.nav-link{
+.nav-link {
   font-size: 25px;
   padding: 0px;
 }
-.sticky-top{
+.sticky-top {
   position: sticky;
 }
-
+.bg {
+  background-color: rgb(214, 214, 214);
+  min-height: 100vh;
+}
+.bg2 {
+  background-color: rgb(235, 232, 232);
+  min-height: 100vh;
+}
+button{
+  color: #1e2b37;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="keep">
-    <div class="card shadow border" style="width: 18rem;">
-      <div class="col-12">
-        <img v-bind:src="`${keepProp.img}`" class="card-img" alt="Card image cap" />
+  <div class="keep row">
+    <div class="offset-2 col-3">
+      <div class="card shadow m-4 border" style="width: 18rem;">
+        <img v-bind:src="`${keepProp.img}`" alt="Card image cap" />
         <div class="card-body">
           <button
             v-if="$route.name === 'profile'"
@@ -10,18 +10,23 @@
             type="button"
             @click="deleteKeep(keepProp)"
           >
-            <i class="far fa-trash-alt fa-3x"></i>
+            <i class="far fa-trash-alt fa-2x"></i>
           </button>
-          <button v-if="$route.name === 'vault'" class="btn btn-sm" type="button" @click="deleteVaultKeep()">
-            <i class="far fa-trash-alt fa-3x"></i>
+          <button
+            v-if="$route.name === 'vault'"
+            class="btn btn-sm"
+            type="button"
+            @click="deleteVaultKeep()"
+          >
+            <i class="far fa-trash-alt fa-2x"></i>
           </button>
           <span class="fa-layers fa-fw">
             <button class="btn btn-sm" type="button" @click="viewKeep(keepProp)">
-              <i class="far fa-eye fa-3x"></i>
+              <i class="far fa-eye fa-2x"></i>
             </button>
           </span>
           <button type="button" class="btn" data-toggle="collapse" data-target="#collapse">
-            <i class="far fa-share-square fa-3x"></i>
+            <i class="far fa-share-square fa-2x"></i>
           </button>
           <div class="collapse" id="collapse">
             <select v-model="newVaultId" @change="createVaultKeep()">
@@ -89,10 +94,11 @@ export default {
   display: inline;
 }
 img {
-  width: 20vh;
-  height: 20vh;
+  width: 100%;
+  height: auto;
 }
 .card {
-  background-color: rgb(112, 112, 117);
+  background-color: rgb(199, 199, 209);
+  height: 40vh;
 }
 </style>

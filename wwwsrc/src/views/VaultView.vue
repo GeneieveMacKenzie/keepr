@@ -1,13 +1,15 @@
 <template>
-  <div class="row vault-view">
-    <div class="col-12 sticky-top">
+  <div class="row bg">
+    <div class="col-12 sticky-top vault-view">
       <nav class="navbar bg-primary">
-           <router-link :to="{name: 'profile'}">
-            <a class="nav-link text-white" href="#" @click="backToProfile">Profile</a>
-          </router-link>
+        <router-link :to="{name: 'profile'}">
+          <a class="nav-link text-white" href="#" @click="backToProfile">Profile</a>
+        </router-link>
       </nav>
       <div class="vault">
-        <keep v-for="keep in vaultKeeps" :keepProp="keep" :key="keep._id" />
+        <div class="row">
+          <keep v-for="keep in vaultKeeps" :keepProp="keep" :key="keep._id" />
+        </div>
       </div>
     </div>
   </div>
@@ -45,11 +47,15 @@ export default {
 
 
 <style scoped>
-.nav-link{
+.nav-link {
   font-size: 25px;
   padding: 0px;
 }
-.navbar{
+.navbar {
   padding: 5px;
+}
+.bg {
+  background-color: rgb(214, 214, 214);
+  min-height: 100vh;
 }
 </style>

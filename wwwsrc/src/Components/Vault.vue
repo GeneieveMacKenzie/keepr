@@ -1,6 +1,6 @@
 <template>
-  <div class="vault">
-    <div class="card shadow border" style="width: 18rem;">
+  <div class="vault d-flex justify-content-center">
+    <div class="card mt-3 shadow border" style="width: 18rem;">
       <div class="card-body">
         <button
           type="button"
@@ -9,8 +9,7 @@
           data-target="#vault"
           @click="vaultView(vaultProp)"
         >{{vaultProp.name}}</button>
-        <button class="btn btn-danger btn-sm" @click="deleteVault(vaultProp)">DELETE</button>
-        <p>{{vaultProp.description}}</p>
+        <button class="btn btn-sm" @click="deleteVault(vaultProp)"><i class="far fa-trash-alt fa-2x"></i></button>
       </div>
     </div>
   </div>
@@ -45,4 +44,5 @@ export default {
 
 
 <style scoped>
+
 </style>
