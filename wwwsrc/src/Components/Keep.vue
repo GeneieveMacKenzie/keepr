@@ -1,8 +1,8 @@
 <template>
   <div class="keep row">
-    <div class="offset-2 col-3">
+    <div class="col-3">
       <div class="card shadow m-4 border" style="width: 18rem;">
-        <img v-bind:src="`${keepProp.img}`" alt="Card image cap" />
+        <img v-bind:src="`${keepProp.img}`" class="card-img-top" alt="Card image cap" />
         <div class="card-body">
           <button
             v-if="$route.name === 'profile'"
@@ -34,8 +34,8 @@
               <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
             </select>
           </div>
+          <br>
           <h5 class="card-title inline">{{keepProp.name}}</h5>
-          <p class="card-text">{{keepProp.description}}</p>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@ export default {
       this.$store.dispatch("deleteVaultKeep", data);
     },
     viewKeep(keepProp) {
-      keepProp.count++;
+      keepProp.views++;
       this.$router.push({
         name: "keep",
         params: { keepId: keepProp.id }
@@ -93,12 +93,7 @@ export default {
 .inline {
   display: inline;
 }
-img {
-  width: 100%;
-  height: auto;
-}
 .card {
   background-color: rgb(199, 199, 209);
-  height: 40vh;
 }
 </style>

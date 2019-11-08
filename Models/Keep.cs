@@ -10,6 +10,6 @@ namespace keepr.Models
         public string Description { get; set; }
         public string Img { get; set; }
         public bool isPrivate { get; set; }
-        public int count { get; set; }
+        public int views { get; set; }
     }
 }

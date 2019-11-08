@@ -1,9 +1,14 @@
 <template>
     <div class="login">
+        <div class="row">
+            <div class="col-12 pt-5">
+                <h1>WELCOME TO KEEPR</h1>
+            </div>
+        </div>
         <form v-if="loginForm" @submit.prevent="loginUser">
             <input type="email" v-model="creds.email" placeholder="email">
             <input type="password" v-model="creds.password" placeholder="password">
-            <button type="submit">Login</button>
+            <button class="btn btn-primary ml-2" type="submit">Login</button>
         </form>
         <form v-else @submit.prevent="register">
             <input type="text" v-model="newUser.username" placeholder="name">
@@ -50,3 +55,14 @@
         }
     };
 </script>
+
+<style scoped>
+.login{
+  background-color: rgb(214, 214, 214);
+  min-height: 100vh;
+}
+i{
+  color:#F39C12
+}
+
+</style>

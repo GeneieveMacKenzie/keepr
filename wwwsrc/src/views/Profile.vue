@@ -1,8 +1,8 @@
 <template>
   <div class="profile bg">
     <div class="row">
-      <div class="col-12 sticky-top">
-        <nav class="navbar bg-primary">
+      <div class="col-12">
+        <nav class="navbar bg-primary sticky-top">
           <router-link :to="{name: 'home'}">
             <a class="nav-link text-white" href="#" @click="backButton">Home</a>
           </router-link>

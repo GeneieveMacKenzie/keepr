@@ -106,7 +106,7 @@ export default new Vuex.Store({
         let res = await api.get(`keeps/${data}`)
         commit('setKeepsById', res.data)
       } catch (error) {
-        console.warn(e.message)
+        console.warn(error.message)
       }
     },
     async getKeepsByUser({ commit }) {
