@@ -14,7 +14,6 @@
               <input
                 type="text"
                 class="form-control"
-                id="name"
                 placeholder="Enter Keep Name Here"
                 v-model="newKeep.name"
                 required
@@ -25,7 +24,6 @@
               <input
                 type="text"
                 class="form-control"
-                id="img"
                 placeholder="img URL"
                 v-model="newKeep.img"
                 required
@@ -36,7 +34,6 @@
               <input
                 type="text"
                 class="form-control"
-                id="description"
                 placeholder="Enter Description"
                 v-model="newKeep.description"
                 required

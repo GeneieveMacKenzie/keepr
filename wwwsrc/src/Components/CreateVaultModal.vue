@@ -14,7 +14,6 @@
               <input
                 type="text"
                 class="form-control"
-                id="name"
                 placeholder="Enter Keep Name Here"
                 v-model="newVault.name"
                 required
@@ -25,7 +24,6 @@
               <input
                 type="text"
                 class="form-control"
-                id="description"
                 placeholder="Enter Description"
                 v-model="newVault.description"
                 required
